@@ -1,6 +1,5 @@
 #include "main.h"
 #include <stdarg.h>
-#include <string.h>
 #include <unistd.h>
 /**
  * _printf - function produces output according to format
@@ -33,7 +32,7 @@ int _printf(const char *format, ...)
 
 					while (*str)
 					{
-						count += write(1, str, strlen(str));
+						count += write(1, str, 1);
 						str++;
 					}
 						break;
