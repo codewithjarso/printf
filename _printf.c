@@ -22,7 +22,6 @@ int _printf(const char *format, ...) {
       case 'c': {
         char c = (char)va_arg(args, int);
         count += write(1, &c, 1);
-
         break;
       }
       case 's': {
@@ -30,6 +29,7 @@ int _printf(const char *format, ...) {
         while (*str) {
           count += write(1, str, 1);
           str++;
+      
         }
         break;
       }
@@ -44,7 +44,7 @@ int _printf(const char *format, ...) {
       }
     }
     format++;
-  }
+ }
 
   va_end(args);
   return count;
