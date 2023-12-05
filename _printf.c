@@ -23,21 +23,14 @@ int _printf(const char *format, ...)
 			switch (*++format)
 			{
 				case 'c':
-					{
-						char c = (char)va_arg(args, int);
-
-						count += write(1, &c, 1);
-						break;
-					}
+					count += write(1, (char)va_arg(args, int), 1);
+					break;
 				case 's':
 					{
 						const char *str = va_arg(args, const char *);
 
-						while (*str)
-						{
-							count += write(1, str, 1);
-							str++;
-						}
+						count += write(1, str, 1);
+						str++;
 						break;
 					}
 				case '%':
