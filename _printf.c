@@ -27,7 +27,7 @@ int _printf(const char *format, ...)
 			switch (*++format)
 			{
 				case 'c':
-					count += write(1, (char)va_arg(args, int), 1);
+					count += write(1, va_arg(args, char), 1);
 					break;
 				case 's':
 					{
