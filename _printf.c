@@ -29,8 +29,11 @@ int _printf(const char *format, ...)
 					{
 						const char *str = va_arg(args, const char *);
 
-						count += write(1, str, 1);
-						str++;
+						while (*str)
+						{
+							count += write(1, str, 1);
+							str++;
+						}
 						break;
 					}
 				case '%':
