@@ -8,48 +8,42 @@
  */
 int _printf(const char *format, ...)
 {
-	int count = 0;
-	va_list args;
+  int count = 0;
+  va_list args;
 
-	va_start(args, format);
-	while (*format != '\0')
-	{
-		if (*format != '%')
-		{
-			count += write(1, format, 1);
-		}
-		else
-		{
-			switch (*++format)
-			{
-				case 'c':
-					{
-					char c = (char)va_arg(args, int);
-					count += write(1, &c, int), 1);
-					break;
-					}
-				case 's':
-					{
-						const char *str = va_arg(args, const char *);
+  va_start(args, format);
+  while (*format != '\0') {
+    if (*format != '%') {
+      count += write(1, format, 1);
+    } else {
+      format++;
+      switch (*format) {
+      case 'c': {
+        char c = (char)va_arg(args, int);
+        count += write(1, &c, 1);
 
-						while (*str)
-						{
-							count += write(1, str, 1);
-							str++;
-						}
-						break;
-					}
-				case '%':
-					count += write(1, "%", 1);
-					break;
-				default:
-					count += write(1, format - 1, 1);
-					count += write(1, format, 1);
-					break;
-			}
-		}
-		format++;
-	}
-	va_end(args);
-	return (count);
+        break;
+      }
+      case 's': {
+        const char *str = va_arg(args, const char *);
+        while (*str) {
+          count += write(1, str, 1);
+          str++;
+        }
+        break;
+      }
+      case '%':
+        count += write(1, "%", 1);
+
+        break;
+      default:
+        count += write(1, format - 1, 1);
+        count += write(1, format, 1);
+        break;
+      }
+    }
+    format++;
+  }
+ va_end(args);
+  return (count);
 }
