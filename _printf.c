@@ -26,7 +26,7 @@ int _printf(const char *format, ...)
 
 						count += write(1, &c, 1);
 						break;
-					  }
+					}
 				case 's': {
 						  const char *str = va_arg(args, const char *);
 
