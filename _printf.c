@@ -37,6 +37,51 @@ int _printf(const char *format, ...)
             {
                 count += write(1, "%", 1);
             }
+		    else if (*format == 'x' || *format == 'X' || *format == 'u' || *format == 'p' || *format == 'o')
+{
+    unsigned int num = va_arg(args, unsigned int);
+    unsigned int temp = num;
+    int digit_count = 0;
+    while (temp != 0)
+    {
+        temp /= 10;
+        digit_count++;
+    }
+    while (digit_count > 0)
+    {
+        unsigned int digit = num % 10;
+        if (*format == 'x')
+        {
+            char c = (digit < 10) ? digit + '0' : digit - 10 + 'a';
+            write(1, &c, 1);
+        }
+        else if (*format == 'X')
+        {
+            char c = (digit < 10) ? digit + '0' : digit - 10 + 'A';
+            write(1, &c, 1);
+        }
+        else if (*format == 'u' || *format == 'o')
+        {
+            char c = digit + '0';
+            write(1, &c, 1);
+        }
+        else if (*format == 'p')
+        {
+            if (digit < 10)
+            {
+                char c = digit + '0';
+                write(1, &c, 1);
+            }
+            else
+            {
+                char c = digit + 'A' - 10;
+                write(1, &c, 1);
+            }
+        }
+        num /= 10;
+        digit_count--;
+    }
+}
             else if (*format == 'd' || *format == 'i')
             {
                 int num = va_arg(args, int);
