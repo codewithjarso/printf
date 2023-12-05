@@ -32,7 +32,7 @@ int _printf(const char *format, ...)
 
 					while (*str)
 					{
-						count += write(1, str, 1);
+						count += write(1, str, strlen(str));
 						str++;
 					}
 						break;
@@ -43,7 +43,6 @@ int _printf(const char *format, ...)
 				default:
 					count += write(1, format - 1, 1);
 					count += write(1, format, 1);
-					break;
 			}
 		}
 		format++;
