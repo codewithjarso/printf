@@ -19,8 +19,7 @@ int _printf(const char *format, ...)
 			count += write(1, format, 1);
 		} else
 		{
-			format++;
-			switch (*format)
+			switch (*++format)
 			{
 				case 'c': {
 						  char c = (char)va_arg(args, int);
@@ -44,7 +43,6 @@ int _printf(const char *format, ...)
 				default:
 					count += write(1, format - 1, 1);
 					count += write(1, format, 1);
-					break;
 			}
 		}
 		format++;
