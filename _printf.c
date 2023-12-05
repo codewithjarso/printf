@@ -24,87 +24,54 @@ int _printf(const char *format, ...)
 		}
 		else
 		{
-			switch (*++format)
-			{
-				case 'c':
-					count += write(1, (char[]){va_arg(args, int)}, 1);
-					break;
-				case 's':
-					{
-						char *str = va_arg(args, char *);
-						int len = 0;
-						
-                    while (str[len])
-                        len++;
-						count += write(1, str, len);
-						break;
-					}
-					case 'd':
-                                        {
-                                                int num = va_arg(args, int);
-                                                if (num < 0)
-                                                {
-                                                        count += write(1, "-", 1);
-                                                        num = -num;
-                                                }
-                                                if (num == 0)
-                                                {
-                                                        count += write(1, "0", 1);
-                                                }
-                                                else
-                                                {
-                                                        int rev = 0;
-                                                        while (num != 0)
-                                                        {
-                                                                rev = rev * 10 + num % 10;
-                                                                num /= 10;
-                                                        }
-                                                        while (rev != 0)
-                                                        {
-                                                                count += write(1, &"0123456789"[rev % 10], 1);
-                                                                rev /= 10;
-                                                        }
-                                                }
-                                        }
-                                        break;
-				case 'i':
-                                        {
-                                                int num = va_arg(args, int);
-                                                if (num < 0)
-                                                {
-                                                        count += write(1, "-", 1);
-                                                        num = -num;
-                                                }
-                                                if (num == 0)
-                                                {
-                                                        count += write(1, "0", 1);
-                                                }
-                                                else
-                                                {
-                                                        int rev = 0;
-                                                        while (num != 0)
-                                                        {
-                                                                rev = rev * 10 + num % 10;
-                                                                num /= 10;
-                                                        }
-                                                        while (rev != 0)
-                                                        {
-                                                                count += write(1, &"0123456789"[rev % 10], 1);
-                                                                rev /= 10;
-                                                        }
-                                                }
-                                        }
-                                        break;
-				case '%':
-					count += write(1, "%", 1);
-					break;
-				default:
-					count += write(1, format - 1, 1);
-					count += write(1, format, 1);
-			}
-		}
-		format++;
-	}
-	va_end(args);
-	return (count);
+			            if (*++format == 'c')
+            {
+                count += write(1, (char[]){va_arg(args, int)}, 1);
+            }
+            else if (*format == 's')
+            {
+                char *str = va_arg(args, char *);
+                count += write(1, str, strlen(str));
+            }
+            else if (*format == '%')
+            {
+                count += write(1, "%", 1);
+            }
+            else if (*format == 'd' || *format == 'i')
+            {
+                int num = va_arg(args, int);
+                char num_str[12];
+                int digit_count = 0;
+                if (num < 0)
+                {
+                    count += write(1, "-", 1);
+                    num = -num;
+                }
+                if (num == 0)
+                {
+                    count += write(1, "0", 1);
+                }
+                else
+                {
+                    while (num != 0)
+                    {
+                        num_str[digit_count++] = (num % 10) + '0';
+                        num /= 10;
+                    }
+                    for (int i = digit_count - 1; i >= 0; i--)
+                    {
+                        count += write(1, &num_str[i], 1);
+                    }
+                }
+            }
+            else
+            {
+                count += write(1, format - 1, 1);
+                count += write(1, format, 1);
+            }
+        }
+        format++;
+    }
+    va_end(args);
+    return count;
 }
