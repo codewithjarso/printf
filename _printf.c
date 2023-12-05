@@ -32,8 +32,11 @@ int _printf(const char *format, ...)
 				case 's':
 					{
 						char *str = va_arg(args, char *);
+						int len = 0;
 						
-						count += write(1, str, strlen(str));
+                    while (str[len])
+                        len++;
+						count += write(1, str, len);
 						break;
 					}
 					case 'd':
