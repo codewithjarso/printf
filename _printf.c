@@ -36,6 +36,34 @@ int _printf(const char *format, ...)
 						count += write(1, str, strlen(str));
 						break;
 					}
+					case 'd':
+                                        {
+                                                int num = va_arg(args, int);
+                                                if (num < 0)
+                                                {
+                                                        count += write(1, "-", 1);
+                                                        num = -num;
+                                                }
+                                                if (num == 0)
+                                                {
+                                                        count += write(1, "0", 1);
+                                                }
+                                                else
+                                                {
+                                                        int rev = 0;
+                                                        while (num != 0)
+                                                        {
+                                                                rev = rev * 10 + num % 10;
+                                                                num /= 10;
+                                                        }
+                                                        while (rev != 0)
+                                                        {
+                                                                count += write(1, &"0123456789"[rev % 10], 1);
+                                                                rev /= 10;
+                                                        }
+                                                }
+                                        }
+                                        break;
 				case '%':
 					count += write(1, "%", 1);
 					break;
