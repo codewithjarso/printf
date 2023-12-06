@@ -29,8 +29,7 @@ int _printf(const char *format, ...)
 
 					count += write(1, &c, 1);
 					break;
-					  }
-				case 's': {
+					} case 's': {
 						  const char *str = va_arg(args, const char *);
 
 					if (str == NULL)
