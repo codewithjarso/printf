@@ -1,6 +1,6 @@
 #include "main.h"
-#include <stdarg.h>
 #include <string.h>
+#include <stdarg.h>
 #include <unistd.h>
 /**
  * _printf - function produces output according to format
@@ -19,12 +19,10 @@ int _printf(const char *format, ...)
 	{
 		if (*format != '%')
 		{
-			write(1, format, 1);
-			count++;
+			count += write(1, format, 1);
 		} else
 		{
-			format++;
-			switch (*format)
+			switch (*++format)
 			{
 				case 'c': {
 						char c = (char)va_arg(args, int);
@@ -34,11 +32,8 @@ int _printf(const char *format, ...)
 					}
 				case 's': {
 						  const char *str = va_arg(args, const char *);
-						  int str_len = 0;
 
-					while (str[str_len] != '\0')
-						str_len++;
-					count += write(1, str, str_len);
+					count += write(1, str, strlen(str));
 					break;
 					}
 				case '%':
