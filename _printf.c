@@ -19,7 +19,8 @@ int _printf(const char *format, ...)
 	{
 		if (*format != '%')
 		{
-			count += write(1, format, 1);
+			write(1, format, 1);
+			count++;
 		} else
 		{
 			format++;
@@ -39,6 +40,8 @@ int _printf(const char *format, ...)
 					}
 				case '%':
 					count += write(1, "%", 1);
+					break;
+				case '\0':
 					break;
 				default:
 					count += write(1, format - 1, 1);
