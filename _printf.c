@@ -34,14 +34,15 @@ int _printf(const char *format, ...)
 					}
 				case 's': {
 						  const char *str = va_arg(args, const char *);
+						  int str_len = 0;
 
-					count += write(1, str, strlen(str));
-						break;
+					while (str[str_len] != '\0')
+						str_len++;
+					count += write(1, str, str_len);
+					break;
 					}
 				case '%':
 					count += write(1, "%", 1);
-					break;
-				case '\0':
 					break;
 				default:
 					count += write(1, format - 1, 1);
