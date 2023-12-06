@@ -13,8 +13,8 @@ int _printf(const char *format, ...)
 	va_list args;
 
 	va_start(args, format);
-	if (*format == '\0')
-		return (count);
+	if (format == NULL)
+		return (-1);
 	while (*format != '\0')
 	{
 		if (*format != '%')
@@ -22,7 +22,8 @@ int _printf(const char *format, ...)
 			count += write(1, format, 1);
 		} else
 		{
-			switch (*++format)
+			format++;
+			switch (*format)
 			{
 				case 'c': {
 						char c = (char)va_arg(args, int);
@@ -42,7 +43,6 @@ int _printf(const char *format, ...)
 				default:
 					count += write(1, "%", 1);
 					count += write(1, format, 1);
-					break;
 			}
 		}
 		format++;
