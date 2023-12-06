@@ -43,9 +43,9 @@ int _printf(const char *format, ...)
 				case '\0':
 					return (-1);
 				default:
+					count += write(1, format - 1, 1);
 					count += write(1, format, 1);
-			}
-		} format++;
+			} } format++;
 	} va_end(args);
 	return (count);
 }
