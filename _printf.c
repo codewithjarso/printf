@@ -22,8 +22,6 @@ int _printf(const char *format, ...)
 			count += write(1, format, 1);
 		} else
 		{
-			if (*format == '\0')
-				break;
 			switch (*++format)
 			{
 				case 'c': {
@@ -35,18 +33,17 @@ int _printf(const char *format, ...)
 				case 's': {
 						  const char *str = va_arg(args, const char *);
 
-						  if (str == NULL)
-							  count += write(1, "(null)", 6);
-						  else
-							  count += write(1, str, strlen(str));
-									  
+						if (str == NULL)
+							count += write(1, "(null)", 6);
+						else
+							count += write(1, str, strlen(str));		  
 					break;
 					}
 				case '%':
 					count += write(1, "%", 1);
 					break;
 				case '\0':
-					return -1;
+					return (-1);
 				default:
 					count += write(1, format - 1, 1);
 					count += write(1, format, 1);
