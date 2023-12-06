@@ -36,12 +36,10 @@ int _printf(const char *format, ...)
 						  const char *str = va_arg(args, const char *);
 
 						  if (str == NULL)
-					i	  {
 							  count += write(1, "(null)", 6);
-									  } else
-									  {
-									  count += write(1, str, strlen(str));
-									  }
+						  else
+							  count += write(1, str, strlen(str));
+									  
 					break;
 					}
 				case '%':
