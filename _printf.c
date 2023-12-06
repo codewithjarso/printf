@@ -33,10 +33,10 @@ int _printf(const char *format, ...)
 				case 's': {
 						  const char *str = va_arg(args, const char *);
 
-						if (str == NULL)
-							count += write(1, "(null)", 6);
-						else
-							count += write(1, str, strlen(str));		  
+					if (str == NULL)
+						count += write(1, "(null)", 6);
+					else
+						count += write(1, str, strlen(str));
 					break;
 					}
 				case '%':
