@@ -48,8 +48,8 @@ int _printf(const char *format, ...)
 					count += write(1, format - 1, 1);
 					count += write(1, format, 1);
 			}
-		
-		       	format++;
+		}
+		format++;
 	}
 	va_end(args);
 	return (count);
