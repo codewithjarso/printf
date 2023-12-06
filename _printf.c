@@ -37,8 +37,7 @@ int _printf(const char *format, ...)
 					else
 						count += write(1, str, strlen(str));
 					break;
-					}
-				case '%':
+					} case '%':
 					count += write(1, "%", 1);
 					break;
 				case '\0':
@@ -47,9 +46,7 @@ int _printf(const char *format, ...)
 					count += write(1, format - 1, 1);
 					count += write(1, format, 1);
 			}
-		}
-		format++;
-	}
-	va_end(args);
+		} format++;
+	} va_end(args);
 	return (count);
 }
