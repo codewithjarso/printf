@@ -37,7 +37,7 @@ int _printf(const char *format, ...)
 
 						  if (str == NULL)
 					i	  {
-							  count += write(1, "(null)",strlen("(null)"));
+							  count += write(1, "(null)", 6);
 									  } else
 									  {
 									  count += write(1, str, strlen(str));
