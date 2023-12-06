@@ -36,8 +36,8 @@ int _printf(const char *format, ...)
 						  const char *str = va_arg(args, const char *);
 
 						  if (str == NULL)
-						  {
-							  count += write(1, "(null)",strlen("(null)");
+					i	  {
+							  count += write(1, "(null)",strlen("(null)"));
 									  } else
 									  {
 									  count += write(1, str, strlen(str));
