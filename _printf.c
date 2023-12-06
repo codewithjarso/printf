@@ -39,6 +39,7 @@ int _printf(const char *format, ...)
 					break;
 					} case '%':
 					count += write(1, "%", 1);
+					break;
 				case '\0':
 					return (-1);
 				default:
